@@ -1,0 +1,23 @@
+package com.hibernate.util;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
+import org.hibernate.Session;
+
+import com.hibernate.entity.Employee;
+
+public class ConnectionUtil {
+
+	public static void main(String[] args) {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			Employee employee = new Employee();
+			employee.setEmployeeName("Akash");	employee.setEmployeeSalary(5400.678);
+			employee.setEmployeeJoiningDate(Date.valueOf(LocalDate.of(2024, 7,21)));
+			session.persist(employee);
+			session.getTransaction().commit();
+		}
+		
+	}
+}

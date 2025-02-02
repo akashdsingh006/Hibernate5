@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="E:\Workspace\hibernate\TablePerClassInheritenceStrategy"/>
+			<item value="E:\Workspace\hibernate\HibernateMappings\src\main\java\com\hibernate\mappings\utils\ConnectionUtil.java"/>
+			<item value="E:\Workspace\hibernate\HibernateCRUD"/>
+			<item value="E:\Workspace\hibernate\EntityCreationSaveAndPersist"/>
+			<item value="E:\Workspace\hibernate\HibernateSessionFactoryCreation"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<item key="catalog" value="https://repo1.maven.org/maven2/archetype-catalog.xml"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+		</list>
+		<list key="groupId">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+			<item value="com.hql"/>
+			<item value="SingleTableInheritenceStrategy"/>
+			<item value="HibernateMappings"/>
+			<item value=" com.hibernate.crud.example"/>
+			<item value="com.hibernate.java.entity"/>
+			<item value="com.hibernate.java"/>
+		</list>
+		<list key="name">
+			<item value="SingleTableInheritenceStrategy"/>
+			<item value="HibernateMappings"/>
+			<item value="HibernateCRUD"/>
+			<item value="EntityCreationSaveAndPersist"/>
+			<item value="HibernateSessionFactoryCreation"/>
+		</list>
+		<list key="artifactId">
+			<item value="HibernateQueryLanguage-PART1"/>
+			<item value="com.hibernate.inherit"/>
+			<item value="com.hibernate.java.mappings"/>
+			<item value="HibernateCRUD"/>
+			<item value="EntityCreationSaveAndPersist"/>
+			<item value="HibernateSessionFactoryCreation"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

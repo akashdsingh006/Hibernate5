@@ -1,0 +1,26 @@
+
+<!DOCTYPE hibernate-configuration PUBLIC  
+   "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+   "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+   
+<hibernate-configuration>
+	<session-factory>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/postgres</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">akash</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		 <property name="use_sql_comments">true</property>
+		 
+		<mapping class="com.hibernate.crud.entity.Employee"/>
+		<mapping class="com.hibernate.crud.entity.BankingDetails"/>
+		<mapping class="com.hibernate.crud.entity.Address"/>
+		<mapping class="com.hibernate.crud.entity.Student"/>
+		<mapping class="com.hibernate.crud.entity.Teacher"/>
+		<mapping class="com.hibernate.crud.entity.School"/>
+		
+	</session-factory>
+</hibernate-configuration>
