@@ -1,0 +1,34 @@
+package com.hql.util;
+
+import java.util.List;
+
+import org.hibernate.Session;
+
+import com.hql.entity.Person;
+import com.hql.entity.Phone;
+
+public class ConnectionUtil {
+
+	public static void main(String[] args) {
+		try(Session session= HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			Person person1 = new Person();
+			person1.setPersonName("Rahul");
+			person1.setPersonAge(35);
+			
+			Phone phone1= new Phone();
+			phone1.setBrand("Apple");
+			phone1.setModel("iPhone");
+			//phone1.setPerson(person1);
+			Phone phone2= new Phone();
+			phone2.setBrand("Samsung");
+			phone2.setModel("S22");
+			//phone2.setPerson(person1);
+			
+			person1.setPhones(List.of(phone1,phone2));
+			
+			session.persist(person1);
+			session.getTransaction().commit();
+		}
+	}
+}

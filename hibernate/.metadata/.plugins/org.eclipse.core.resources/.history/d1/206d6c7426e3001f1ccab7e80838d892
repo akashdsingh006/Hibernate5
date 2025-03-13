@@ -1,0 +1,45 @@
+package com.hql.util;
+
+import java.sql.Date;
+import java.time.LocalDate;
+
+import org.hibernate.Session;
+
+import com.hql.entity.Person;
+
+public class ConnectionUtil {
+
+	public static void main() {
+		insertData();
+	}
+
+	private static void insertData() {
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+			session.beginTransaction();
+			Person person1 = new Person();
+			person1.setPersonName("Akash");
+			person1.setPersonAge(25);
+			person1.setDabeOfBirth(Date.valueOf(LocalDate.of(2000, 10, 12)));
+			
+			Person person2 = new Person();
+			person2.setPersonName("Rony");
+			person2.setPersonAge(28);
+			person2.setDabeOfBirth(Date.valueOf(LocalDate.of(1997, 5, 23)));
+			
+			Person person3 = new Person();
+			person3.setPersonName("Sana");
+			person3.setPersonAge(24);
+			person3.setDabeOfBirth(Date.valueOf(LocalDate.of(2000, 1, 15)));
+
+			Person person4 = new Person();
+			person4.setPersonName("Kabir");
+			person4.setPersonAge(30);
+			person4.setDabeOfBirth(Date.valueOf(LocalDate.of(1994, 8, 9)));
+
+			session.persist(person1); session.persist(person2);
+			session.persist(person3); session.persist(person4);
+			session.getTransaction().commit();
+		}
+
+	}
+}

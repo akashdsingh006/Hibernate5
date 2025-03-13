@@ -1,0 +1,5 @@
+package com.hql.util;
+
+public class ConnectionUtil {
+
+}

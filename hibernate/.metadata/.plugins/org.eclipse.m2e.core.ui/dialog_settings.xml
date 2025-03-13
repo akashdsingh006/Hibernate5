@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="E:\Workspace\hibernate\HibernateQueryLanguage-PART1"/>
 			<item value="E:\Workspace\hibernate\TablePerClassInheritenceStrategy"/>
 			<item value="E:\Workspace\hibernate\HibernateMappings\src\main\java\com\hibernate\mappings\utils\ConnectionUtil.java"/>
 			<item value="E:\Workspace\hibernate\HibernateCRUD"/>
@@ -49,6 +50,7 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
+			<item value="com.hibernate.hql"/>
 			<item value="com.hql"/>
 			<item value="SingleTableInheritenceStrategy"/>
 			<item value="HibernateMappings"/>
@@ -64,6 +66,7 @@
 			<item value="HibernateSessionFactoryCreation"/>
 		</list>
 		<list key="artifactId">
+			<item value="MultipleAggregateHQL"/>
 			<item value="HibernateQueryLanguage-PART1"/>
 			<item value="com.hibernate.inherit"/>
 			<item value="com.hibernate.java.mappings"/>

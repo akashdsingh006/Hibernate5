@@ -1,0 +1,17 @@
+package com.hql.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "employee_db")
+public class Employee {
+	
+	private Integer employeeId;
+	
+	private String employeeName;
+	
+	private Double salary;
+	
+	
+}

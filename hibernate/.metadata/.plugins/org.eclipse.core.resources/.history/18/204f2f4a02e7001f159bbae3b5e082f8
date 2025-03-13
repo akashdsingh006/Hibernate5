@@ -1,0 +1,109 @@
+package com.hql.util;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+
+import com.hql.entity.Department;
+import com.hql.entity.Employee;
+
+public class ConnectionUtil {
+
+	public static void main(String args[]) {
+		//insertData();
+		criteriaQueryJoin();
+		criteriaQueryGroupBy_Having();
+	}
+	private static void insertData() {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			Department department1 = new Department();
+	        department1.setDepartmentName("Human Resources");
+	        
+	        Department department2 = new Department();
+	        department2.setDepartmentName("Finance");
+	        
+	        // Create Employees and assign them to departments
+	        Employee employee1 = new Employee();
+	        employee1.setEmployeeName("John Doe");
+	        employee1.setSalary(50000.0);
+	        employee1.setDepartment(department1);
+
+	        Employee employee2 = new Employee();
+	        employee2.setEmployeeName("Jane Smith");
+	        employee2.setSalary(55000.0);
+	        employee2.setDepartment(department1);
+	        
+	        Employee employee3 = new Employee();
+	        employee3.setEmployeeName("Emily Johnson");
+	        employee3.setSalary(60000.0);
+	        employee3.setDepartment(department2);
+	        
+	        Employee employee4 = new Employee();
+	        employee4.setEmployeeName("Michael Brown");
+	        employee4.setSalary(65000.0);
+	        employee4.setDepartment(department2);
+
+	        // Add employees to departments
+	        List<Employee> hrEmployees = new ArrayList<>();
+	        hrEmployees.add(employee1);
+	        hrEmployees.add(employee2);
+	        department1.setEmployees(hrEmployees);
+	        
+	        List<Employee> financeEmployees = new ArrayList<>();
+	        financeEmployees.add(employee3);
+	        financeEmployees.add(employee4);
+	        department2.setEmployees(financeEmployees);
+	        
+	        session.persist(department1);
+	        session.persist(department2);
+	        
+	        session.getTransaction().commit();
+		}
+	}
+	
+	private static void criteriaQueryJoin() {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+			Root<Department> deptRoot = query.from(Department.class);
+			Root<Employee> empRoot = query.from(Employee.class);
+			
+			query.multiselect(deptRoot, empRoot);
+			query.where(builder.equal(deptRoot.get("departmentId"), empRoot.get("department")));
+			
+			List<Object[]> result = session.createQuery(query).getResultList();
+			for(Object[] ob :result) {
+				Department department = (Department) ob[0];
+				System.out.println(department);
+				
+				Employee employee = (Employee) ob[1];
+				System.out.println(employee);
+			}
+		}
+	}
+	
+	private static void criteriaQueryGroupBy_Having(){
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+			
+			Root<Employee> root = query.from(Employee.class);
+			query.multiselect(builder.count(root.get("employeeName")), builder.sum(root.get("salary")), root.get("department").get("departmentName"));
+			query.having(builder.greaterThan(builder.sum(root.get("salary")), 20000));
+			
+			query.groupBy(root.get("department").get("departmentId"));
+			
+			List<Object[]> resultList = session.createQuery(query).getResultList();
+			for(Object[] ob: resultList) {
+				System.out.println(ob[0] +" - "+ob[1]+" - "+ob[2]);
+			}
+			
+		}
+	}
+}

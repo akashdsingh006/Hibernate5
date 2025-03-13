@@ -1,0 +1,123 @@
+package com.hql.util;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.Tuple;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import com.hql.entity.Partner;
+import com.hql.entity.Person;
+import com.hql.entity.Phone;
+
+public class ConnectionUtil {
+
+	public static void main(String[] args) {
+		try(Session session= HibernateUtil.getSessionFactory().openSession()){
+			session.beginTransaction();
+			populateData(session);
+			
+			Partner partner = new Partner();
+			partner.setPartnerName("Global Stores");
+			partner.setPartnerJoining(Date.valueOf(LocalDate.of(2023, 8, 15)));
+			session.persist(partner);
+			session.getTransaction().commit();
+		}
+		createMultipleRootsCriteriaQuery();
+	}
+
+	private static void populateData(Session session) {
+		Person person1 = new Person();
+		person1.setPersonName("Rahul");
+		person1.setPersonAge(35);
+
+		Phone phone1 = new Phone();
+		phone1.setBrand("Apple");
+		phone1.setModel("iPhone");
+		phone1.setPerson(person1);
+
+		Phone phone2 = new Phone();
+		phone2.setBrand("Samsung");
+		phone2.setModel("S22");
+		phone2.setPerson(person1);
+
+		person1.setPhones(List.of(phone1, phone2));
+
+		session.persist(person1);
+
+		// Adding person2 and person3 entries
+
+		Person person2 = new Person();
+		person2.setPersonName("Anjali");
+		person2.setPersonAge(28);
+
+		Phone phone3 = new Phone();
+		phone3.setBrand("Google");
+		phone3.setModel("Pixel 6");
+		phone3.setPerson(person2);
+
+		Phone phone4 = new Phone();
+		phone4.setBrand("OnePlus");
+		phone4.setModel("9 Pro");
+		phone4.setPerson(person2);
+
+		person2.setPhones(List.of(phone3, phone4));
+
+		session.persist(person2);
+
+		Person person3 = new Person();
+		person3.setPersonName("Vikram");
+		person3.setPersonAge(42);
+
+		Phone phone5 = new Phone();
+		phone5.setBrand("Nokia");
+		phone5.setModel("3310");
+		phone5.setPerson(person3);
+
+		Phone phone6 = new Phone();
+		phone6.setBrand("Sony");
+		phone6.setModel("Xperia");
+		phone6.setPerson(person3);
+
+		person3.setPhones(List.of(phone5, phone6));
+
+		session.persist(person3);
+	}
+	
+	private static void createMultipleRootsCriteriaQuery() {
+		try(Session session = HibernateUtil.getSessionFactory().openSession()){
+			CriteriaBuilder builder = session.getCriteriaBuilder();
+			CriteriaQuery<Tuple> query = builder.createQuery(Tuple.class);
+			Root<Person> personRoot = query.from(Person.class);
+			Root<Partner> partnerRoot = query.from(Partner.class);
+			query.multiselect(personRoot, partnerRoot);
+			
+			Predicate personPredicate = builder.and(builder.equal(personRoot.get("personName"), "Vikram"),
+					builder.isNotEmpty(personRoot.get("phones")));
+			
+			Predicate partnerPredicate = builder.like(partnerRoot.get("partnerName") ,"%Global%");
+			
+			
+			query.where(builder.and(personPredicate,partnerPredicate));
+			
+			List<Tuple> result = session.createQuery(query).getResultList();
+			
+			for(Tuple tuple : result) {
+				Person person= (Person) tuple.get(0);
+				System.out.println(person);
+				person.getPhones().forEach(System.out::println);
+				
+				Partner partner = (Partner) tuple.get(1);
+				System.out.println(partner);
+			}
+			
+		}
+	}
+}
